@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notice List</title>
+    <style>
+        /* Add your CSS styles here */
+        .mx-20 {
+            margin: 20px;
+        }
+        .text-gray-1500 {
+            color: #333;
+        }
+        .card {
+            border: 1px solid #ccc;
+            margin: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main container -->
+    <div class="mx-20">
+        <br><br>
+        <!-- Page title and New notice button -->
+        <div class="flex flex-row items-center justify-between">
+            <h1 class="text-7xl font-algerian text-gray-1500">Notice List</h1>
+            <input type="text" id="searchTerm" placeholder="Search notices by category, title, or tags">
+        </div>
+
+        <!-- Notice Cards -->
+        <div class="card" id="notice-list">
+            <!-- Notice cards will be added dynamically using JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        const notices = [
+            { id: 1, category: "Important", title: "Important Notice 1", tags: "tag1, tag2" },
+            { id: 2, category: "Event", title: "Upcoming Event", tags: "event, tag3" },
+            { id: 3, category: "Holiday", title: "Holiday Closure", tags: "holiday, tag4" },
+            // Add more notices here
+        ];
+
+        const searchInput = document.getElementById("searchTerm");
+        const noticeList = document.getElementById("notice-list");
+
+        function renderNotices(noticesToRender) {
+            noticeList.innerHTML = '';
+            noticesToRender.forEach(notice => {
+                const card = document.createElement("div");
+                card.classList.add("card");
+
+                const categoryHeader = document.createElement("h6");
+                categoryHeader.textContent = notice.category;
+
+                const title = document.createElement("h5");
+                title.textContent = notice.title;
+
+                const tags = document.createElement("p");
+                tags.textContent = `Tags: ${notice.tags}`;
+
+                card.appendChild(categoryHeader);
+                card.appendChild(title);
+                card.appendChild(tags);
+
+                noticeList.appendChild(card);
+            });
+        }
+
+        function performSearch() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const filteredNotices = notices.filter(notice => {
+                const category = notice.category.toLowerCase();
+                const title = notice.title.toLowerCase();
+                const tags = notice.tags.toLowerCase();
+                return category.includes(searchTerm) || title.includes(searchTerm) || tags.includes(searchTerm);
+            });
+
+            renderNotices(filteredNotices);
+        }
+
+        // Initial rendering
+        renderNotices(notices);
+
+        // Attach an event listener to the search input
+        searchInput.addEventListener("input", performSearch);
+    </script>
+</body>
+</html>
+

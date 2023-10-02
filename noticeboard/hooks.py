@@ -7,6 +7,7 @@ app_description = "A Noticeboard to display, search and filter notices."
 app_email = "notice@gne.com"
 app_license = "n"
 
+
 # Includes in <head>
 # ------------------
 
